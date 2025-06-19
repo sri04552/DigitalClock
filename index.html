@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="../../node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <title>Document</title>
+    <style>
+      #outerBox {
+        min-height: 100vh;
+        background: linear-gradient(
+          45deg,
+          rgb(18, 165, 182),
+          rgb(91, 255, 203)
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .innerBox {
+        height: 200px;
+        width: 600px;
+        border-radius: 10px;
+        background: rgb(237, 220, 238);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: -10px 10px 15px rgb(15, 15, 15);
+      }
+
+      .clock {
+        font-size: 4.5rem;
+      }
+      .col-color {
+        color: rgb(0, 0, 0);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outerBox">
+      <div class="innerBox">
+        <div class="clock">
+          <span id="hrs">00</span>
+          <span class="col-color">:</span>
+          <span id="mins">00</span>
+          <span class="col-color">:</span>
+          <span id="secs">00</span>
+          <span id="merid">AM</span>
+        </div>
+      </div>
+    </div>
+    <script>
+      let hours = document.getElementById("hrs");
+      let minutes = document.getElementById("mins");
+      let seconds = document.getElementById("secs");
+      let meridan = document.getElementById("merid");
+
+      function time() {
+        let currentDate = new Date();
+        let hr = currentDate.getHours();
+        let min = currentDate.getMinutes();
+        let sec = currentDate.getSeconds();
+        let mer = "AM";
+
+        // Handle AM/PM
+        if (hr >= 12) {
+          mer = "PM";
+        } else {
+          mer = "AM";
+        }
+
+        // Convert to 12-hour format
+        if (hr == 0) {
+          hr = 12;
+        } else if (hr > 12) {
+          hr = hr - 12;
+        }
+
+        // Add leading 0 manually
+        if (hr < 10) {
+          hr = "0" + hr;
+        } else {
+          hr = hr.toString();
+        }
+
+        if (min < 10) {
+          min = "0" + min;
+        } else {
+          min = min.toString();
+        }
+
+        if (sec < 10) {
+          sec = "0" + sec;
+        } else {
+          sec = sec.toString();
+        }
+
+        // Update UI
+        hours.innerHTML = hr;
+        minutes.innerHTML = min;
+        seconds.innerHTML = sec;
+        meridan.innerHTML = mer;
+      }
+      let timer = setInterval(time, 1000);
+      time();
+    </script>
+  </body>
+</html>
